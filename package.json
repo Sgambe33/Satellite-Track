@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "eas": "^0.1.0",
+    "leaflet": "^1.9.3",
     "leaflet-easybutton": "^2.4.0",
     "material-icons": "^1.12.2",
     "ol": "^7.1.0",
