@@ -29,6 +29,7 @@
     "leaflet": "^1.9.3",
     "leaflet-easybutton": "^2.4.0",
     "ol": "^7.1.0",
+    "sqlite3": "^5.1.2",
     "tle.js": "^4.7.3"
   }
 }
