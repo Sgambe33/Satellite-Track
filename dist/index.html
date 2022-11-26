@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>sidebar-v2 example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <link rel="stylesheet" href="/leaflet-sidebar.bdd65cb6.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <style>body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body, #map {
+            height: 100%;
+            font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+
+        .lorem {
+            font-style: italic;
+            color: #AAA;
+        }</style>
+<script src="/leaflet-sidebar.bdd65cb6.js"></script><link rel="stylesheet" href="/main.0ab05bb7.css"></head>
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#database" role="tab"><i class="fa fa-database"></i></a></li>
+                <li><a href="#images" role="tab"><i class="fa fa-photo"></i></a></li>
+                <li><a role="button" id="gps-button"><i class="fa fa-compass"></i></a></li>
+                <li><a href="https://github.com/Sgambe33" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+            </ul>
+            <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-cog"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="database">
+                <h1 class="sidebar-header">
+                    Satellite database
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <input type="text" name="satellite-search" id="satellite-search">
+            </div>
+
+            <div class="sidebar-pane" id="images">
+                <h1 class="sidebar-header">Immagini <span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <iframe width="380" height="270" src="https://video.ibm.com/embed/9408562" scrolling="no" allowfullscreen="" webkitallowfullscreen="" frameborder="0" style="border: 0 none transparent;"></iframe>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="/leaflet-sidebar.11a80a9f.js"></script>
+    <script src="/main.0ab05bb7.js"></script>
+</body>
+</html>
