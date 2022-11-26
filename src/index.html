@@ -37,16 +37,41 @@
             <!-- Tab panes -->
             <div class="sidebar-content">
                 <div class="sidebar-pane" id="database">
-                    <h1 class="sidebar-header">
-                        Satellite database
-                        <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
-                    </h1>
-                    <input type="text" name="satellite-search" id="satellite-search">
+                    <h1 class="sidebar-header">Lista satelliti<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                    <div class="block font font-medium p-5">
+                        <input type="text" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" placeholder="Nome satellite..." name="satellite-search" id="satellite-search">
+                    </div>
+                    
+                    <div>
+                        <table class="min-w-full border-collapse block md:table">
+                            <thead class="block md:table-header-group">
+                                <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                                    <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">Nome</th>
+                                    <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell"><a href="https://en.wikipedia.org/wiki/Satellite_Catalog_Number" target="_blank">NORAD ID</a></th>
+                                    <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">Azione</th>
+                                </tr>
+                            </thead>
+                            <tbody class="block md:table-row-group">
+                                <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
+                                    <td class="p-2 md:border md:border-grey-500 text-center block md:table-cell ">CRYOSAT 2s</td>
+                                    <td class="p-2 md:border md:border-grey-500 text-center block md:table-cell">36508</td>
+                                    <td class="p-2 md:border md:border-grey-500 text-center block md:table-cell">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Traccia</button>
+                                    </td>
+                                </tr>
+    			
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
 
                 <div class="sidebar-pane" id="images">
                     <h1 class="sidebar-header">Immagini <span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                    <iframe width="380" height="270" src="https://video.ibm.com/embed/9408562" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+                    <div class="flex justify-center">
+                        <iframe class="w-screen h-max" src="https://video.ibm.com/embed/9408562" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+                    </div>
                 </div>
 
                 <div class="sidebar-pane" id="settings">
@@ -76,15 +101,11 @@
                     <path fill="inherit" d="M62.531,63.4l2.6,1.5L34.257,118.374l-2.6-1.5Z"></path>
                 </g>
                 <circle fill="inherit" cx="55.641" cy="97.563" r="6.047">
-                    <animate attributeName="opacity" dur="1710ms" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="1;0"></animate>
+                    <animate attributeName="opacity" dur="1710ms" begin="0ms" repeatCount="indefinite" keyTimes="0;1" values="1;0"></animate>
                 </circle>
             </svg>
         </div>
-
-
-
-
-
+        
         <script src="/leaflet/leaflet.js"></script>
         <script src="/leaflet-easybutton/easy-button.js"></script>
 
