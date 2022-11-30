@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" href="css/leaflet-sidebar.css" />
         <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" href="/leaflet-dialog/Leaflet.Dialog.css"
 
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="css/tw.css" />
@@ -22,7 +23,7 @@
     <body class="relative w-screen min-h-screen h-screen overflow-hidden font-main">
         <div id="loading-cnt" class="z-50 backdrop-blur-sm backdrop-brightness-75 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full h-full">
 
-            <svg class="w-48 aspect-square fill-amber-400" version="1.0" viewBox="0 0 128 128">
+            <!-- <svg class="w-48 aspect-square fill-amber-400" version="1.0" viewBox="0 0 128 128">
                 <path fill="inherit" class="cls-1" d="M64 127.75a64 64 0 1 1 64-64 64 64 0 0 1-64 64zM125.72
                     65h-13.75A47.86 47.86 0 0 1 65 111.73v13.74A61.73 61.73 0 0 0 125.72 65zM65 65v21.95A23.2 23.2 0 0 0 87.2 65H65zm22.2-2A23.22 23.22 0 0 0 65 40.55V63h22.23zm-46.37 2A23.2 23.2
                     0 0 0 63 86.95V65H40.8zM63 63V40.55A23.22 23.22 0 0 0 40.78 63H63zm-24.2 2H18.3A45.85 45.85 0 0 0 63 109.72V88.95A25.2 25.2 0 0 1 38.8 65zm0-2A25.2 25.2 0 0 1 63
@@ -41,19 +42,20 @@
                 <circle fill="inherit" cx="55.641" cy="97.563" r="6.047">
                     <animate attributeName="opacity" dur="1710ms" begin="0ms" repeatCount="indefinite" keyTimes="0;1" values="1;0"></animate>
                 </circle>
-            </svg>
+            </svg> -->
+            <img src="./images/img.svg" class="w-48 aspect-square" alt="">
         </div>
         <div id="sidebar" class="sidebar collapsed">
             <!-- Nav tabs -->
             <div class="sidebar-tabs">
                 <ul role="tablist">
                     <li><a href="#database" role="tab"><i class="fa fa-database"></i></a></li>
-                    <li><a href="#images" role="tab"><i class="fa fa-photo"></i></a></li>
+                    <!-- <li><a href="#images" role="tab"><i class="fa fa-photo"></i></a></li> -->
                     <li><a role="button" id="gps-button"><i class="fa fa-compass"></i></a></li>
                     <li><a href="https://github.com/Sgambe33" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
                 </ul>
                 <ul role="tablist">
-                    <li><a href="#settings" role="tab"><i class="fa fa-cog"></i></a></li>
+                    <!-- <li><a href="#settings" role="tab"><i class="fa fa-cog"></i></a></li> -->
                 </ul>
             </div>
 
@@ -63,8 +65,7 @@
                     <h1 class="sidebar-header">Lista satelliti<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                     <div class="block font font-medium p-5">
                         <input type="text" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" placeholder="Nome satellite..." name="satellite-search" id="satellite-search">
-                    </div>
+                        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" placeholder="Nome satellite..." name="satellite-search" id="satellite-search">                    </div>
                     
                     <div class="w-max-[400px] md:w-max-[40vw] overflow-auto">
                         <table id="lista-satelliti-table" class="w-full border-collapse w-full h-full">
@@ -90,13 +91,9 @@
                     
                 </div>
 
-                <div class="sidebar-pane" id="images">
-                    <h1 class="sidebar-header">Immagini <span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                </div>
-
-                <div class="sidebar-pane" id="settings">
+                <!-- <div class="sidebar-pane" id="settings">
                     <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -105,8 +102,7 @@
        
         
         <script src="/leaflet/leaflet.js"></script>
-        <script src="/leaflet-easybutton/easy-button.js"></script>
-
+        <script src="/leaflet-dialog/Leaflet.Dialog.js"></script>
         <script src="js/leaflet-sidebar.js"></script>
         <script src="js/utils.js"></script>
         <script src="js/main.js"></script>
