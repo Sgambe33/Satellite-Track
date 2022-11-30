@@ -16,7 +16,7 @@
   },
   "private": true,
   "keywords": [],
-  "author": "sandoramix",
+  "author": "Sgambe33",
   "license": "GPLv3",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "leaflet": "^1.9.3",
+    "leaflet-dialog": "^1.0.5",
     "leaflet-easybutton": "^2.4.0",
     "node-fetch": "^3.3.0",
     "ol": "^7.1.0",
