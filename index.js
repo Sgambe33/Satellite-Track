@@ -33,6 +33,7 @@ app.use(express.static(path.join(__dirname, `public`)));
 app.use('/leaflet', express.static(`./node_modules/leaflet/dist`));
 app.use('/leaflet-easybutton', express.static(`./node_modules/leaflet-easybutton/src/`));
 app.use('/tle', express.static(`./node_modules/tle.js/dist`));
+app.use('/leaflet-dialog', express.static(`./node_modules/leaflet-dialog`))
 
 app.use(`/get-tle`, (req, res) => {
 	try {
