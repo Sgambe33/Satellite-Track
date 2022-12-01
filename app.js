@@ -1,12 +1,5 @@
 const express = require(`express`);
-const http = require(`http`);
 const path = require('path');
-
-
-const SETTINGS = {
-	port: 3000,
-	host: `0.0.0.0`
-};
 
 const app = express();
 
@@ -48,8 +41,31 @@ app.use(`/get-tle`, (req, res) => {
 	}
 });
 
-const http_server = http.createServer(app);
 
-http_server.listen(SETTINGS.port, SETTINGS.host, () => {
-	console.log(`Server on at http://localhost:${SETTINGS.port}`);
-});
+var options = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
+  index: ['index.html'],
+  maxAge: '1m',
+  redirect: false
+}
+app.use(express.static('public', options))
+
+// #############################################################################
+// Catch all handler for all other request.
+app.use('*', (req,res) => {
+  res.json({
+      at: new Date().toISOString(),
+      method: req.method,
+      hostname: req.hostname,
+      ip: req.ip,
+      query: req.query,
+      headers: req.headers,
+      cookies: req.cookies,
+      params: req.params
+    })
+    .end()
+})
+
+module.exports = app

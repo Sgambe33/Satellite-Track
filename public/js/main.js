@@ -124,20 +124,20 @@ function drawOrbits(TLEdata) {
     fetch('/api/getLatLon', {headers:{line1:TLEdata[1], line2:TLEdata[2]}})
         .then(res => res.json())
         .then(data => {            
-            const {lat, lng, height, velocity, orbits} = data;
+            const {lat, lng, height, velocity, threeOrbitsArr} = data;
             
             let ALPHA = Math.asin((Math.sqrt(Math.pow(RAGGIO_TERRA + height, 2) - Math.pow(RAGGIO_TERRA, 2)) / RAGGIO_TERRA)) * (180 / PI);
             let horizonRadius = 2 * PI * RAGGIO_TERRA * (ALPHA / 360);
 
             pulisciMappa()
 
-            var multipolyline = L.polyline(orbits[0], { color: 'blue' });
+            var multipolyline = L.polyline(threeOrbitsArr[0], { color: 'blue' });
             multipolyline.addTo(map); //Orbita successiva
 
-            multipolyline = L.polyline(orbits[1], { color: 'red' });
+            multipolyline = L.polyline(threeOrbitsArr[1], { color: 'red' });
             multipolyline.addTo(map);//Orbita attuale
 
-            multipolyline = L.polyline(orbits[2], { color: 'green' });
+            multipolyline = L.polyline(threeOrbitsArr[2], { color: 'green' });
             multipolyline.addTo(map);//Orbita precedente
 
             dialog.setContent(`<p>Latitudine: ${lat.toFixed(4)}</p> <br> <p>Longitudine: ${lng.toFixed(4)}</p> <br> <p>Altitudine: ${height.toFixed(2)} Km</p> <br> <p>Velocità: ${velocity.toFixed(1)} Km/s</p>`)
@@ -186,7 +186,7 @@ function creaListaSatelliti(headers, values){
 
         tdBtn.addEventListener("click", () => {
             console.log(satInfo[2])
-            fetch(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${xx[2]}&FORMAT=TLE`)
+            fetch(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${satInfo[2]}&FORMAT=TLE`)
                 .then((response) => response.text())
                 .then(TLE => {
                     

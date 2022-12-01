@@ -1,18 +1,12 @@
 {
-  "name": "SatelliteTrack",
+  "name": "satellite-track",
   "version": "1.0.0",
-  "description": "Satellite Track web app",
-  "main": "index.js",
+  "description": "Expressjs Hello World example to provide faster start deploying on Cyclic platform",
+  "main": "server.js",
   "scripts": {
-    "start": "npm run tailwind-build && node index.js",
-    "dev": "start npm run tailwind-watch && start npm run nodemon",
-    "nodemon": "nodemon index.js",
-    "tailwind-watch": "npx tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css --watch",
-    "tailwind-build": "npx tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
+    "serve": "nodemon --watch . server.js",
+    "start": "node server.js && npx tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
   "keywords": [],
