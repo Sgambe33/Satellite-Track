@@ -4,7 +4,7 @@ const path = require('path');
 
 
 const SETTINGS = {
-	port: 80,
+	port: 8080,
 	host: `0.0.0.0`
 };
 
