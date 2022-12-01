@@ -1,4 +1,5 @@
 {
+    "buildCommand": "npx tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css",
     "builds": [
         {
             "src": "index.js",
