@@ -1,4 +1,17 @@
-'use strict';
+`use strict`;
+const animatedLoadingCnt = document.getElementById(`loading-cnt`);
+
+window.addEventListener(`load`, () => toggleLoadingVisibility(false));
+
+
+function toggleLoadingVisibility(visible = true) {
+	setTimeout(() => {
+		if (visible) {
+			return animatedLoadingCnt.classList.remove(`!hidden`);
+		}
+		animatedLoadingCnt.classList.add(`!hidden`);
+	}, 200);
+}
 //COSTANTI
 const homeIcon = L.icon({
     iconUrl: "https://img.icons8.com/ios-filled/50/null/exterior.png",
@@ -18,45 +31,51 @@ const TLE_URL = "https://celestrak.org/NORAD/elements/gp.php?CATNR=${NORADID}&FO
 const RAGGIO_TERRA = 6371;
 const PI = Math.PI;
 const SudEst = L.latLng(-90, 180), NordOvest = L.latLng(90, -180), confini = L.latLngBounds(SudEst, NordOvest);
-
 const LISTA_SATELLITI=document.getElementById(`lista-satelliti-table`)
+
 //LAYER MAPPA
-var OSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, noWrap: true, attribution: '© OpenStreetMap' });
+var OSM = L.tileLayer(`https://tile.openstreetmap.org/{z}/{x}/{y}.png`, { maxZoom: 19, noWrap:true, attribution: `© OpenStreetMap` });
 
-var MAPBOX = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dhbWJlIiwiYSI6ImNsYWRvdzlqeTBseHozdmxkM21ndG9kbzkifQ.BsiPWaIBggyVoE98kvU5aQ", { id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: '© MapBox' });
+var MAPBOX = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dhbWJlIiwiYSI6ImNsYWRvdzlqeTBseHozdmxkM21ndG9kbzkifQ.BsiPWaIBggyVoE98kvU5aQ", { id: `mapbox/streets-v11`, tileSize: 512, noWrap:true, zoomOffset: -1, attribution: `© MapBox` });
 
-var layersMappa = { "OpenStreetMap": OSM, "MapBox": MAPBOX };
+var ESRI = L.tileLayer("https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {maxZoom: 18, noWrap:true, attribution: `© ArcGIS`});
 
-var map = L.map('map', { zoomSnap: 0.25, minZoom: 3, maxBounds: confini, maxBoundsViscosity: 1.0, layers: [OSM, MAPBOX] }).setView([0, 0], 1);
+var layersMappa = { "MapBox": MAPBOX , "Esri": ESRI, "OpenStreetMap": OSM};
+
+var map = L.map(`map`, { zoomSnap: 0.25, minZoom: 3, maxBounds:confini, maxBoundsViscosity: 1.0, layers: [MAPBOX, ESRI, OSM] }).setView([0, 0], 1);
 
 //CONTROLLI E WIDGET MAPPA
-var diagOptions = {size: [ 300, 300 ],minSize: [ 100, 100 ],maxSize: [ 350, 350 ],anchor: [ 250, 250 ],position: "topleft",initOpen: false}
+var diagOptions = {size: [ 300, 300 ],minSize: [ 100, 100 ],maxSize: [ 310, 190 ],anchor: [ 250, 250 ],position: "topleft",initOpen: false}
 var dialog = L.control.dialog(diagOptions).addTo(map)
 
 var controlloLayer = L.control.layers(layersMappa).addTo(map);
-var barraLaterale = L.control.sidebar('sidebar').addTo(map);
+var barraLaterale = L.control.sidebar(`sidebar`).addTo(map);
 var scalaMappa = L.control.scale().addTo(map);
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(map) {
   var div = L.DomUtil.create("div", "legend");
   div.innerHTML += "<h4>Legenda</h4>";
-  div.innerHTML += '<i class="bg-green-700"></i><span>Orbita precedente</span><br>';
-  div.innerHTML += '<i class="bg-red-700"></i><span>Orbita attuale</span><br>';
-  div.innerHTML += '<i class="bg-blue-700"></i><span>Orbita successiva</span><br>';
-  div.innerHTML += '<i class="icon" style="background-image: url(https://img.icons8.com/sf-black-filled/64/null/satellite-sending-signal.png);background-repeat: no-repeat;"></i><span>Satellite</span><br>';
+  div.innerHTML += `<i class="bg-green-700"></i><span>Orbita successiva</span><br>`;
+  div.innerHTML += `<i class="bg-red-700"></i><span>Orbita attuale</span><br>`;
+  div.innerHTML += `<i class="bg-blue-700"></i><span>Orbita precedente</span><br>`;
+  div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/sf-black-filled/64/null/satellite-sending-signal.png);background-repeat: no-repeat;"></i><span>Satellite</span><br>`;
   return div;
 };
 legend.addTo(map);
+
+var avionics = L.control({ position: "bottomright" });
+
 
 //VARIABILI 
 var isUserLocalized = false;
 var debounceTimeout
 var drawInterval
 var waypoint
+var nomeSatellite = ""
 
 //EVENT LISTENERs
-document.getElementById('satellite-search').addEventListener('input', (ev)=>{
+document.getElementById(`satellite-search`).addEventListener(`input`, (ev)=>{
     let nome = ev.target.value
     if(nome.trim() =="") return
     ricerca(nome)
@@ -114,14 +133,13 @@ function ricerca(nome, timeout = 3000) {
                 data.forEach(obj=>{
                     values.push(Object.values(obj))
                 })
-                console.log(values);
-                creaListaSatelliti(['Nome', 'NORAD ID', 'Azione'],values)
+                creaListaSatelliti([`Nome`, `NORAD ID`, `Azione`],values)
             })
     }, timeout)
 }
 
 function drawOrbits(TLEdata) {
-    fetch('/api/getLatLon', {headers:{line1:TLEdata[1], line2:TLEdata[2]}})
+    fetch(`/api/getLatLon`, {headers:{line1:TLEdata[1], line2:TLEdata[2]}})
         .then(res => res.json())
         .then(data => {            
             const {lat, lng, height, velocity, threeOrbitsArr} = data;
@@ -130,18 +148,28 @@ function drawOrbits(TLEdata) {
             let horizonRadius = 2 * PI * RAGGIO_TERRA * (ALPHA / 360);
 
             pulisciMappa()
+            toggleLoadingVisibility(false)
+            var multipolyline = L.polyline(threeOrbitsArr[0], { color: `green` });
+            multipolyline.addTo(map); //Orbita precedente
 
-            var multipolyline = L.polyline(threeOrbitsArr[0], { color: 'blue' });
-            multipolyline.addTo(map); //Orbita successiva
-
-            multipolyline = L.polyline(threeOrbitsArr[1], { color: 'red' });
+            multipolyline = L.polyline(threeOrbitsArr[1], { color: `red` });
             multipolyline.addTo(map);//Orbita attuale
 
-            multipolyline = L.polyline(threeOrbitsArr[2], { color: 'green' });
-            multipolyline.addTo(map);//Orbita precedente
+            multipolyline = L.polyline(threeOrbitsArr[2], { color: `blue` });
+            multipolyline.addTo(map);//Orbita successiva
 
-            dialog.setContent(`<p>Latitudine: ${lat.toFixed(4)}</p> <br> <p>Longitudine: ${lng.toFixed(4)}</p> <br> <p>Altitudine: ${height.toFixed(2)} Km</p> <br> <p>Velocità: ${velocity.toFixed(1)} Km/s</p>`)
-            var circle = L.circle([lat, lng], { color: 'white', fillColor: 'white', fillOpacity: 0.25, radius: horizonRadius * 1000 }).addTo(map); //Raggio visibilità
+            avionics.onAdd = function(map) {
+                var div = L.DomUtil.create("div", "legend");
+                div.innerHTML += `<h4>${nomeSatellite}</h4>`;
+                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/latitude.png);background-repeat: no-repeat;"></i><span>Latitudine: ${lat.toFixed(4)}</span><br>`;
+                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/longitude.png);background-repeat: no-repeat;"></i><span>Longitudine: ${lng.toFixed(4)}</span><br>`;
+                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/resize-vertical.png);background-repeat: no-repeat;"></i><span>Altitudine ${height.toFixed(2)}</span><br>`;
+                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/speedometer.png);background-repeat: no-repeat;"></i><span>Velocità ${velocity.toFixed(1)} Km/s</span><br>`;
+                return div;
+            };
+            avionics.addTo(map);
+
+            var circle = L.circle([lat, lng], { color: `white`, fillColor: `white`, fillOpacity: 0.25, radius: horizonRadius * 1000 }).addTo(map); //Raggio visibilità
             waypoint = L.marker([lat, lng], { icon: satelliteIcon} ).addTo(map)
             waypoint.addEventListener("click", () => dialog.open())
             map.addLayer(waypoint)   
@@ -150,7 +178,7 @@ function drawOrbits(TLEdata) {
     }
 
 function creaListaSatelliti(headers, values){
-
+    
     LISTA_SATELLITI.innerHTML=``
     const thead=document.createElement(`thead`)
     thead.className=`relative` 
@@ -186,6 +214,8 @@ function creaListaSatelliti(headers, values){
 
         tdBtn.addEventListener("click", () => {
             console.log(satInfo[2])
+            nomeSatellite = satInfo[0]
+            toggleLoadingVisibility()
             fetch(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${satInfo[2]}&FORMAT=TLE`)
                 .then((response) => response.text())
                 .then(TLE => {
@@ -193,10 +223,11 @@ function creaListaSatelliti(headers, values){
                     const TLEparsed = TLE.split("\n")
                     console.log(TLEparsed)
                     clearInterval(drawInterval)
+                    
                     drawInterval = setInterval(() => drawOrbits(TLEparsed), 5000);
                 })
         })
-        tdBtn.textContent='Traccia'
+        tdBtn.textContent=`Traccia`
         tdBtn.className=`bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded`
         td.append(tdBtn)
         tbody_tr.append(td)
