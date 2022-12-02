@@ -18,7 +18,7 @@ module.exports={
             }
             finalName=Array.isArray(nome) ? nome.join("") : nome
 
-            const finalRows=db.prepare(`SELECT * FROM SATCAT WHERE OBJECT_NAME LIKE '%${finalName.toUpperCase()}%'`).all() ??[]
+            const finalRows=db.prepare(`SELECT * FROM SATCAT WHERE OBJECT_NAME LIKE '%${finalName.toUpperCase()}%' LIMIT 100`).all() ??[]
     
             res.status(200).json(finalRows);
         })
