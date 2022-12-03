@@ -163,7 +163,7 @@ function drawOrbits(TLEdata) {
                 div.innerHTML += `<h4>${nomeSatellite}</h4>`;
                 div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/latitude.png);background-repeat: no-repeat;"></i><span>Latitudine: ${lat.toFixed(4)}</span><br>`;
                 div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/longitude.png);background-repeat: no-repeat;"></i><span>Longitudine: ${lng.toFixed(4)}</span><br>`;
-                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/resize-vertical.png);background-repeat: no-repeat;"></i><span>Altitudine ${height.toFixed(2)}</span><br>`;
+                div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/resize-vertical.png);background-repeat: no-repeat;"></i><span>Altitudine ${height.toFixed(2)} Km</span><br>`;
                 div.innerHTML += `<i class="icon" style="background-image: url(https://img.icons8.com/material-outlined/24/000000/speedometer.png);background-repeat: no-repeat;"></i><span>Velocità ${velocity.toFixed(1)} Km/s</span><br>`;
                 return div;
             };
